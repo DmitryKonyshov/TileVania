@@ -13,3 +13,11 @@
 
 ### Game Theme:
 - Escape. You're a prisoner. Clock is ticking
+
+#Tech Setup
+- Multiple Tilemap layers
+  Background
+  Foreground
+- Keyboard controls or follow
+- Camera-snapping or follow
+- Tile painting automation
