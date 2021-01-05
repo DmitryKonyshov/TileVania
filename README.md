@@ -1,3 +1,6 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/dmitrykonyshov/tilevania/badge)](https://www.codefactor.io/repository/github/dmitrykonyshov/tilevania)
+
+
 # TileVania
 2D Tilemap Platformer
 
