@@ -14,10 +14,15 @@
 ### Game Theme:
 - Escape. You're a prisoner. Clock is ticking
 
-#Tech Setup
+# Tech Setup
 - Multiple Tilemap layers
   Background
   Foreground
 - Keyboard controls or follow
 - Camera-snapping or follow
 - Tile painting automation
+
+# MVP Gameplay Features
+- Character movement: Player can run and jump
+- Traps/obstacles: A mechanism to complete the level
+- Countdown timer: If reaches zero, game over
