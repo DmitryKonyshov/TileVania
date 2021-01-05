@@ -1,15 +1,15 @@
 # TileVania
 2D Tilemap Platformer
 
-## Player Experience:
+### Player Experience:
 - Under pressure
 
-## Core Mechanic:
+### Core Mechanic:
 - Run and jump
 
-## Core game loop:
+### Core game loop:
 - Get from A to B by navigating platforms and
   avoiding traps and enemies
 
-## Game Theme:
+### Game Theme:
 - Escape. You're a prisoner. Clock is ticking
