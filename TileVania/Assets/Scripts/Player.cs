@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     //Config
     [SerializeField] private float runSpeed = 5f;
+    [SerializeField] private float jumpSpeed = 5f;
     
     //State
 
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Run();
+        Jump();
         FlipSprite();
     }
     
@@ -38,6 +40,16 @@ public class Player : MonoBehaviour
 
         var playerHasHorizontalSpeed = Mathf.Abs(velocity.y) > Mathf.Epsilon;
         _myAnimator.SetBool(Running, playerHasHorizontalSpeed);
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void Jump()
+    {
+        if (CrossPlatformInputManager.GetButtonDown("Jump"))
+        {
+            var jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
+            _myRigidBody.velocity += jumpVelocityToAdd;
+        }
     }
 
     private void FlipSprite()
