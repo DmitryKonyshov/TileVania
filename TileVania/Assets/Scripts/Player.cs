@@ -6,14 +6,16 @@ public class Player : MonoBehaviour
     //Config
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] private float jumpSpeed = 5f;
+    [SerializeField] private float climbSpeed = 5f;
     
     //State
 
     //Cached component reference
     private Rigidbody2D _myRigidBody;
     private Animator _myAnimator;
-    private static readonly int Running = Animator.StringToHash("Running");
     private Collider2D _myCollider2D;
+    private static readonly int Running = Animator.StringToHash("Running");
+    private static readonly int Climbing = Animator.StringToHash("Climbing");
 
     //Message then methods
     private void Start()
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
         Run();
         Jump();
         FlipSprite();
+        ClimbLadder();
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
@@ -45,9 +48,24 @@ public class Player : MonoBehaviour
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
+    private void ClimbLadder()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation
+        if (!_myCollider2D.IsTouchingLayers(LayerMask.GetMask($"Climbing"))) return;
+        var controlTrow = CrossPlatformInputManager.GetAxis("Vertical");
+        var velocity = _myRigidBody.velocity;
+        var climbVelocity = new Vector2(velocity.x, controlTrow * climbSpeed);
+        velocity = climbVelocity;
+        _myRigidBody.velocity = velocity;
+        var playerHasVerticalSpeed = Mathf.Abs(velocity.y) > Mathf.Epsilon;
+        _myAnimator.SetBool(Climbing, playerHasVerticalSpeed);
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
     private void Jump()
     {
-        if (!_myCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"))) return;
+        // ReSharper disable once HeapView.ObjectAllocation
+        if (!_myCollider2D.IsTouchingLayers(LayerMask.GetMask($"Ground"))) return;
         if (!CrossPlatformInputManager.GetButtonDown("Jump")) return;
         var jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
         _myRigidBody.velocity += jumpVelocityToAdd;
