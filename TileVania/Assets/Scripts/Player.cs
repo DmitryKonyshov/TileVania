@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D _myRigidBody;
     private Animator _myAnimator;
     private Collider2D _myCollider2D;
+    private float _gravityScaleAtStart;
     private static readonly int Running = Animator.StringToHash("Running");
     private static readonly int Climbing = Animator.StringToHash("Climbing");
 
@@ -23,15 +24,16 @@ public class Player : MonoBehaviour
         _myRigidBody = GetComponent<Rigidbody2D>();
         _myAnimator = GetComponent<Animator>();
         _myCollider2D = GetComponent<Collider2D>();
+        _gravityScaleAtStart = _myRigidBody.gravityScale;
     }
 
     // Update is called once per frame
     private void Update()
     {
         Run();
+        ClimbLadder();
         Jump();
         FlipSprite();
-        ClimbLadder();
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
@@ -51,14 +53,22 @@ public class Player : MonoBehaviour
     private void ClimbLadder()
     {
         // ReSharper disable once HeapView.ObjectAllocation
-        if (!_myCollider2D.IsTouchingLayers(LayerMask.GetMask($"Climbing"))) return;
-        var controlTrow = CrossPlatformInputManager.GetAxis("Vertical");
-        var velocity = _myRigidBody.velocity;
-        var climbVelocity = new Vector2(velocity.x, controlTrow * climbSpeed);
-        velocity = climbVelocity;
-        _myRigidBody.velocity = velocity;
-        var playerHasVerticalSpeed = Mathf.Abs(velocity.y) > Mathf.Epsilon;
-        _myAnimator.SetBool(Climbing, playerHasVerticalSpeed);
+        if (_myCollider2D.IsTouchingLayers(LayerMask.GetMask($"Climbing")))
+        {
+            var controlTrow = CrossPlatformInputManager.GetAxis("Vertical");
+            var velocity = _myRigidBody.velocity;
+            var climbVelocity = new Vector2(velocity.x, controlTrow * climbSpeed);
+            velocity = climbVelocity;
+            _myRigidBody.velocity = velocity;
+            _myRigidBody.gravityScale = 0f;
+            var playerHasVerticalSpeed = Mathf.Abs(velocity.y) > Mathf.Epsilon;
+            _myAnimator.SetBool(Climbing, playerHasVerticalSpeed);
+        }
+        else
+        {
+            _myAnimator.SetBool(Climbing, false);
+            _myRigidBody.gravityScale = _gravityScaleAtStart;
+        }
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
