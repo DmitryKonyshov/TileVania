@@ -3,12 +3,21 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
 {
+    //Config
     [SerializeField] private float runSpeed = 5f;
-    private Rigidbody2D _myRigidBody;
     
+    //State
+
+    //Cached component reference
+    private Rigidbody2D _myRigidBody;
+    private Animator _myAnimator;
+    private static readonly int Running = Animator.StringToHash("Running");
+
+    //Message then methods
     private void Start()
     {
         _myRigidBody = GetComponent<Rigidbody2D>();
+        _myAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -18,11 +27,17 @@ public class Player : MonoBehaviour
         FlipSprite();
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     private void Run()
     {
         var controlThrow = CrossPlatformInputManager.GetAxis("Horizontal");
-        var playerVelocity = new Vector2(controlThrow * runSpeed, _myRigidBody.velocity.y);
-        _myRigidBody.velocity = playerVelocity;
+        var velocity = _myRigidBody.velocity;
+        var playerVelocity = new Vector2(controlThrow * runSpeed, velocity.y);
+        velocity = playerVelocity;
+        _myRigidBody.velocity = velocity;
+
+        var playerHasHorizontalSpeed = Mathf.Abs(velocity.y) > Mathf.Epsilon;
+        _myAnimator.SetBool(Running, playerHasHorizontalSpeed);
     }
 
     private void FlipSprite()
