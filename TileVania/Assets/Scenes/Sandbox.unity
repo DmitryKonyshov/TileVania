@@ -157,7 +157,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2025,7 +2025,7 @@ GameObject:
   - component: {fileID: 2030579046}
   - component: {fileID: 2030579045}
   - component: {fileID: 2030579044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3014,14 +3014,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1154976101, guid: ede73a6a541b04f348350f51eaa16ca7, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1154976102, guid: ede73a6a541b04f348350f51eaa16ca7, type: 3}
-      propertyPath: jumpSpeed
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 5148776498767807681, guid: ede73a6a541b04f348350f51eaa16ca7,
         type: 3}
       propertyPath: m_LocalPosition.x
