@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         // ReSharper disable once HeapView.ObjectAllocation
-        if (!_myBodyCollider2D.IsTouchingLayers(LayerMask.GetMask("Enemy"))) return;
+        if (!_myBodyCollider2D.IsTouchingLayers(LayerMask.GetMask("Enemy", $"Hazards"))) return;
         _isAlive = false;
         _myAnimator.SetTrigger(Dying);
         GetComponent<Rigidbody2D>().velocity = deathKick;
