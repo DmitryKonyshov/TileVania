@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
     //Cached component reference
     private Rigidbody2D _myRigidBody;
     private Animator _myAnimator;
-    private Collider2D _myCollider2D;
+    private CapsuleCollider2D _myBodyCollider2D;
+    private BoxCollider2D _myFeet;
     private float _gravityScaleAtStart;
     private static readonly int Running = Animator.StringToHash("Running");
     private static readonly int Climbing = Animator.StringToHash("Climbing");
@@ -23,7 +24,8 @@ public class Player : MonoBehaviour
     {
         _myRigidBody = GetComponent<Rigidbody2D>();
         _myAnimator = GetComponent<Animator>();
-        _myCollider2D = GetComponent<Collider2D>();
+        _myBodyCollider2D = GetComponent<CapsuleCollider2D>();
+        _myFeet = GetComponent<BoxCollider2D>();
         _gravityScaleAtStart = _myRigidBody.gravityScale;
     }
 
@@ -53,7 +55,7 @@ public class Player : MonoBehaviour
     private void ClimbLadder()
     {
         // ReSharper disable once HeapView.ObjectAllocation
-        if (_myCollider2D.IsTouchingLayers(LayerMask.GetMask($"Climbing")))
+        if (_myFeet.IsTouchingLayers(LayerMask.GetMask($"Climbing")))
         {
             var controlTrow = CrossPlatformInputManager.GetAxis("Vertical");
             var velocity = _myRigidBody.velocity;
@@ -75,7 +77,7 @@ public class Player : MonoBehaviour
     private void Jump()
     {
         // ReSharper disable once HeapView.ObjectAllocation
-        if (!_myCollider2D.IsTouchingLayers(LayerMask.GetMask($"Ground"))) return;
+        if (!_myFeet.IsTouchingLayers(LayerMask.GetMask($"Ground"))) return;
         if (!CrossPlatformInputManager.GetButtonDown("Jump")) return;
         var jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
         _myRigidBody.velocity += jumpVelocityToAdd;
