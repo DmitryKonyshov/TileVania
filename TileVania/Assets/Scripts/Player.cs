@@ -7,8 +7,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] private float jumpSpeed = 5f;
     [SerializeField] private float climbSpeed = 5f;
+    [SerializeField] private Vector2 deathKick = new Vector2(12f, 12f);
     
     //State
+    private bool _isAlive = true;
 
     //Cached component reference
     private Rigidbody2D _myRigidBody;
@@ -18,6 +20,7 @@ public class Player : MonoBehaviour
     private float _gravityScaleAtStart;
     private static readonly int Running = Animator.StringToHash("Running");
     private static readonly int Climbing = Animator.StringToHash("Climbing");
+    private static readonly int Dying = Animator.StringToHash("Dying");
 
     //Message then methods
     private void Start()
@@ -32,10 +35,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!_isAlive) return;
         Run();
         ClimbLadder();
         Jump();
         FlipSprite();
+        Die();
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
@@ -81,6 +86,16 @@ public class Player : MonoBehaviour
         if (!CrossPlatformInputManager.GetButtonDown("Jump")) return;
         var jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
         _myRigidBody.velocity += jumpVelocityToAdd;
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void Die()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation
+        if (!_myBodyCollider2D.IsTouchingLayers(LayerMask.GetMask("Enemy"))) return;
+        _isAlive = false;
+        _myAnimator.SetTrigger(Dying);
+        GetComponent<Rigidbody2D>().velocity = deathKick;
     }
 
     private void FlipSprite()
