@@ -96,6 +96,7 @@ public class Player : MonoBehaviour
         _isAlive = false;
         _myAnimator.SetTrigger(Dying);
         GetComponent<Rigidbody2D>().velocity = deathKick;
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
     private void FlipSprite()
