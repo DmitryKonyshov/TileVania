@@ -305,7 +305,7 @@ MonoBehaviour:
     m_FontSize: 50
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -313,7 +313,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start Game
+  m_Text: Main Menu
 --- !u!222 &118955666
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15139,7 +15139,7 @@ GameObject:
   - component: {fileID: 1780898851}
   - component: {fileID: 1780898850}
   m_Layer: 5
-  m_Name: Main Menu Canvas
+  m_Name: Success Menu Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15239,7 +15239,7 @@ GameObject:
   - component: {fileID: 1889986508}
   - component: {fileID: 1889986511}
   m_Layer: 5
-  m_Name: Start Button
+  m_Name: Main Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15309,7 +15309,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1889986511}
-        m_MethodName: StartFirstLevel
+        m_MethodName: LoadMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25733,17 +25733,17 @@ PrefabInstance:
     - target: {fileID: 576165702586875757, guid: 6841f30504ed04df7bc013e2d558e69a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4319077
+      value: -5.891098
       objectReference: {fileID: 0}
     - target: {fileID: 576165702586875757, guid: 6841f30504ed04df7bc013e2d558e69a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.97325015
+      value: -1.0340483
       objectReference: {fileID: 0}
     - target: {fileID: 576165702586875794, guid: 6841f30504ed04df7bc013e2d558e69a,
         type: 3}
       propertyPath: orthographic size
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 576165702586875795, guid: 6841f30504ed04df7bc013e2d558e69a,
         type: 3}
